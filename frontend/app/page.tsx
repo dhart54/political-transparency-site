@@ -8,120 +8,32 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import {
     Search,
     DollarSign,
-    Vote,
-    TrendingUp,
-    Eye,
     Menu,
     X,
     Lightbulb,
-    ExternalLink,
-    Linkedin,
-    Twitter,
+    FileText,
+    Users,
+    Eye,
+    ChevronRight,
+    UserCircle2,
     ArrowUp,
     ArrowDown,
-    Users,
-    FileText,
 } from "lucide-react";
-// Dashboard widgets
 import OverviewSummary from "../components/OverviewSummary";
 import SearchFilterBar from "../components/SearchFilterBar";
 import OfficialsTable from "../components/OfficialsTable";
 import TrendsPanel from "../components/TrendsPanel";
-// import OfficialDetailModal from "../components/OfficialDetailModal";
 
 export default function Page() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const newsItems = [
-        {
-            title: "Tech Giants Double Down on Capitol Hill",
-            description: "Amazon, Google, and Meta increase lobbying spend by 47% as antitrust bills advance",
-            category: "Technology",
-            timeAgo: "2 hours ago",
-        },
-        {
-            title: "The $150M Defense Spending Battle",
-            description: "How contractors are shaping the Pentagon's budget behind closed doors",
-            category: "Defense",
-            timeAgo: "4 hours ago",
-        },
-        {
-            title: "Pharma's Quiet Medicare Victory",
-            description: "Industry spending pays off as drug pricing reforms face delays",
-            category: "Healthcare",
-            timeAgo: "6 hours ago",
-        },
-        {
-            title: "Energy Lobby's Climate Calculus",
-            description: "Oil companies pivot strategy as renewable subsidies gain momentum",
-            category: "Energy",
-            timeAgo: "8 hours ago",
-        },
-    ];
-
-    // Helper components from original homepage
-    const DataBar = ({ value, maxValue, color = "bg-blue-500", label, amount }: { value: number; maxValue: number; color?: string; label: string; amount: string }) => (
-        <div className="space-y-2">
-            <div className="flex justify-between items-center">
-                <span className="text-sm font-medium text-slate-700">{label}</span>
-                <span className="text-sm font-bold text-slate-900">{amount}</span>
-            </div>
-            <div className="w-full bg-slate-100 rounded-full h-2">
-                <div className={`${color} h-2 rounded-full transition-all duration-700 ease-out`} style={{ width: `${(value / maxValue) * 100}%` }}></div>
-            </div>
-        </div>
-    );
-    const VoteDonut = ({ forVotes, againstVotes, title }: { forVotes: number; againstVotes: number; title: string }) => {
-        const total = forVotes + againstVotes;
-        const forPercentage = (forVotes / total) * 100;
-        const circumference = 2 * Math.PI * 16;
-        const forStroke = (forPercentage / 100) * circumference;
-        return (
-            <div className="flex items-center space-x-3">
-                <div className="relative w-12 h-12">
-                    <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
-                        <circle cx="18" cy="18" r="16" fill="none" stroke="#e2e8f0" strokeWidth="3" />
-                        <circle cx="18" cy="18" r="16" fill="none" stroke="#10b981" strokeWidth="3" strokeDasharray={`${forStroke} ${circumference}`} strokeLinecap="round" />
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-xs font-bold text-slate-700">{forVotes}</span>
-                    </div>
-                </div>
-                <div>
-                    <p className="text-sm font-semibold text-slate-900">{title}</p>
-                    <p className="text-xs text-slate-600">
-                        <span className="text-emerald-600 font-medium">{forVotes} Yes</span>
-                        <span className="mx-1">•</span>
-                        <span className="text-red-500 font-medium">{againstVotes} No</span>
-                    </p>
-                </div>
-            </div>
-        );
-    };
-    const TrendIndicator = ({ value, change, trend, label }: { value: string; change: string; trend: "up" | "down"; label: string }) => (
-        <div className="space-y-2">
-            <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-slate-700">{label}</span>
-                <div className="flex items-center space-x-1">
-                    {trend === "up" ? (
-                        <ArrowUp className="h-3 w-3 text-emerald-500" />
-                    ) : (
-                        <ArrowDown className="h-3 w-3 text-red-500" />
-                    )}
-                    <span className={`text-sm font-bold ${trend === "up" ? "text-emerald-600" : "text-red-600"}`}>{change}</span>
-                </div>
-            </div>
-            <p className="text-lg font-bold text-slate-900">{value}</p>
-        </div>
-    );
-
+    // --- HERO SECTION ---
     return (
         <div className="min-h-screen bg-white dark:bg-slate-950">
             {/* Navigation */}
             <nav className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
-                        {/* Logo */}
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
                                 <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
@@ -132,7 +44,6 @@ export default function Page() {
                                 <span className="text-xl font-bold text-slate-900 dark:text-white">Shine a Light</span>
                             </div>
                         </div>
-                        {/* Desktop Navigation */}
                         <div className="hidden md:block">
                             <div className="ml-10 flex items-baseline space-x-8">
                                 <Link href="/" className="text-slate-900 dark:text-white hover:text-blue-600 px-3 py-2 text-sm font-semibold transition-colors duration-200">Home</Link>
@@ -142,7 +53,6 @@ export default function Page() {
                                 <Link href="/about" className="text-slate-600 dark:text-slate-300 hover:text-slate-900 px-3 py-2 text-sm font-medium transition-colors duration-200">About</Link>
                             </div>
                         </div>
-                        {/* Mobile menu button */}
                         <div className="md:hidden">
                             <Button
                                 variant="ghost"
@@ -155,7 +65,6 @@ export default function Page() {
                             </Button>
                         </div>
                     </div>
-                    {/* Mobile Navigation */}
                     {isMobileMenuOpen && (
                         <div className="md:hidden border-t border-slate-200 py-4">
                             <div className="flex flex-col space-y-2">
@@ -170,97 +79,116 @@ export default function Page() {
                 </div>
             </nav>
 
-            {/* Hero Section - improved layout and spacing */}
-            <section className="relative bg-gradient-to-br from-slate-50 to-blue-50/30 py-10 sm:py-16 lg:py-24">
-                <div className="max-w-7xl mx-auto px-4 sm:px-8">
-                    <div className="flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16">
-                        {/* Left: Text */}
-                        <div className="flex-1">
-                            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 mb-4 leading-tight text-center lg:text-left">
-                                Follow the Money.
-                                <span className="block text-blue-600">See Who Holds the Power.</span>
-                            </h1>
-                            <p className="text-lg sm:text-xl text-slate-600 mb-6 max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
-                                Track campaign donations, lobbying influence, and the decisions that shape your life. Because democracy works best when citizens know who's pulling the strings.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-3 mb-6 sm:mb-8 justify-center lg:justify-start">
-                                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-base sm:text-lg font-semibold rounded-lg shadow-lg transition-all duration-200">
-                                    Track Influence Now
-                                </Button>
-                                <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 text-base sm:text-lg font-medium rounded-lg transition-all duration-200">
-                                    See the Money Flow
-                                </Button>
-                            </div>
-                            <div className="flex gap-4 lg:gap-8 text-center justify-center lg:justify-start mt-6">
-                                <div>
-                                    <p className="text-2xl font-bold text-slate-900">$14.4B</p>
-                                    <p className="text-sm text-slate-600">Total Lobbying (2023)</p>
-                                </div>
-                                <div>
-                                    <p className="text-2xl font-bold text-slate-900">11,832</p>
-                                    <p className="text-sm text-slate-600">Active Lobbyists</p>
-                                </div>
-                                <div>
-                                    <p className="text-2xl font-bold text-slate-900">$8.9B</p>
-                                    <p className="text-sm text-slate-600">Campaign Donations</p>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Right: Chart/Card */}
-                        <div className="w-full max-w-xs mx-auto lg:mx-0 lg:pl-8 mt-8 lg:mt-0">
-                            <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-200">
-                                <h3 className="text-lg font-bold text-slate-900 mb-4">Top Industries by Lobbying Spend</h3>
-                                <div className="space-y-4">
-                                    <DataBar value={375} maxValue={400} color="bg-blue-500" label="Pharmaceuticals" amount="$375M" />
-                                    <DataBar value={298} maxValue={400} color="bg-emerald-500" label="Oil & Gas" amount="$298M" />
-                                    <DataBar value={267} maxValue={400} color="bg-purple-500" label="Technology" amount="$267M" />
-                                    <DataBar value={189} maxValue={400} color="bg-orange-500" label="Finance" amount="$189M" />
-                                </div>
-                                <p className="text-xs text-slate-500 mt-4">Data from 2023 lobbying disclosures</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* --- INSERT DASHBOARD WIDGETS HERE --- */}
-            <main className="w-full max-w-5xl mx-auto flex flex-col gap-4 py-8 px-2 sm:px-6">
-                <OverviewSummary />
-                <SearchFilterBar />
-                <OfficialsTable />
-                <TrendsPanel />
-                {/* <OfficialDetailModal /> */}
-            </main>
-
-            {/* Search Section */}
-            <section className="py-12 bg-white border-b border-slate-100">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-8">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-2">Find the Story Behind the Numbers</h2>
-                        <p className="text-lg text-slate-600">Search politicians, bills, companies, or industries</p>
-                    </div>
-
-                    <div className="relative group max-w-2xl mx-auto">
-                        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5 transition-colors group-focus-within:text-blue-500" />
-                        <Input
-                            type="text"
-                            placeholder="Try 'pharmaceutical lobbying' or 'Senator Smith'"
-                            className="pl-12 pr-4 py-4 text-lg border-2 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 focus:ring-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 bg-white"
-                        />
-                    </div>
-                </div>
-            </section>
-
-            {/* Money & Influence Section */}
-            <section className="py-16 bg-slate-50/50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-black text-slate-900 mb-4">Money & Influence</h2>
-                        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                            Who's funding campaigns and how their wealth is changing
+            {/* HERO + METRICS + CHART */}
+            <section className="pt-8 pb-4 sm:pt-10 sm:pb-6 bg-white dark:bg-slate-950">
+                <div className="max-w-5xl mx-auto px-4 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+                    {/* Hero Text */}
+                    <div className="flex-1 flex flex-col items-start">
+                        <h1 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white leading-tight tracking-tight mb-2">
+                            Follow the Money.<br />
+                            <span className="block text-blue-700 dark:text-blue-400">See Who Holds the Power.</span>
+                        </h1>
+                        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 mb-4 max-w-lg">
+                            Track campaign donations, lobbying influence, and the decisions that shape your life. Because democracy works best when citizens know who's pulling the strings.
                         </p>
+                        <div className="flex gap-3 mb-6">
+                            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 text-base font-semibold rounded-lg shadow transition-all duration-200">
+                                Track Influence Now
+                            </Button>
+                            <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-2 text-base font-medium rounded-lg transition-all duration-200">
+                                See the Money Flow
+                            </Button>
+                        </div>
+                        {/* Key Metrics */}
+                        <div className="flex gap-8 mt-2 mb-6 w-full justify-between">
+                            <div className="flex flex-col items-center flex-1">
+                                <DollarSign className="h-7 w-7 text-blue-600 mb-1" />
+                                <div className="text-2xl font-extrabold text-blue-700 dark:text-blue-400">$14.4B</div>
+                                <div className="text-xs text-slate-500 dark:text-slate-300">Total Lobbying (2023)</div>
+                            </div>
+                            <div className="flex flex-col items-center flex-1">
+                                <Users className="h-7 w-7 text-blue-600 mb-1" />
+                                <div className="text-2xl font-extrabold text-blue-700 dark:text-blue-400">11,832</div>
+                                <div className="text-xs text-slate-500 dark:text-slate-300">Active Lobbyists</div>
+                            </div>
+                            <div className="flex flex-col items-center flex-1">
+                                <FileText className="h-7 w-7 text-blue-600 mb-1" />
+                                <div className="text-2xl font-extrabold text-blue-700 dark:text-blue-400">$8.9B</div>
+                                <div className="text-xs text-slate-500 dark:text-slate-300">Campaign Donations</div>
+                            </div>
+                        </div>
                     </div>
+                    {/* Top Industries Chart Card */}
+                    <div className="flex-1 flex justify-center w-full max-w-sm">
+                        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-6 border border-slate-200 w-full">
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Top Industries by Lobbying Spend</h3>
+                            <div className="space-y-4">
+                                <div className="flex justify-between text-sm">
+                                    <span>Pharmaceuticals</span>
+                                    <span className="font-bold">$375M</span>
+                                </div>
+                                <div className="w-full h-2 bg-blue-100 rounded-full mb-2">
+                                    <div className="h-2 bg-blue-600 rounded-full" style={{ width: "90%" }}></div>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span>Oil & Gas</span>
+                                    <span className="font-bold">$288M</span>
+                                </div>
+                                <div className="w-full h-2 bg-green-100 rounded-full mb-2">
+                                    <div className="h-2 bg-green-500 rounded-full" style={{ width: "70%" }}></div>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span>Technology</span>
+                                    <span className="font-bold">$267M</span>
+                                </div>
+                                <div className="w-full h-2 bg-purple-100 rounded-full mb-2">
+                                    <div className="h-2 bg-purple-500 rounded-full" style={{ width: "65%" }}></div>
+                                </div>
+                                <div className="flex justify-between text-sm">
+                                    <span>Finance</span>
+                                    <span className="font-bold">$189M</span>
+                                </div>
+                                <div className="w-full h-2 bg-orange-100 rounded-full mb-2">
+                                    <div className="h-2 bg-orange-400 rounded-full" style={{ width: "40%" }}></div>
+                                </div>
+                            </div>
+                            <div className="text-xs text-slate-400 mt-2">Data from 2023 lobbying disclosures</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
+            {/* SEARCH BAR (with heading above) */}
+            <section className="py-4 bg-white dark:bg-slate-950">
+                <div className="max-w-3xl mx-auto px-4">
+                    <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-3">Find the Story Behind the Numbers</h2>
+                    <SearchFilterBar />
+                </div>
+            </section>
+
+            {/* OFFICIALS TABLE */}
+            <section className="py-4 bg-white dark:bg-slate-950">
+                <div className="max-w-5xl mx-auto px-4">
+                    <OfficialsTable />
+                </div>
+            </section>
+
+            {/* TRENDS (muted) */}
+            <section className="py-4 bg-white dark:bg-slate-950">
+                <div className="max-w-3xl mx-auto px-4">
+                    <div className="opacity-60 pointer-events-none select-none">
+                        <TrendsPanel />
+                    </div>
+                </div>
+            </section>
+
+            {/* MONEY & INFLUENCE SECTION */}
+            <section className="py-12 bg-slate-50/50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-10">
+                        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2">Money & Influence</h2>
+                        <p className="text-lg text-slate-600 max-w-2xl mx-auto">Who's funding campaigns and how their wealth is changing</p>
+                    </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Who's Buying Influence */}
                         <Card className="border border-slate-200 hover:shadow-lg transition-all duration-300 bg-white">
@@ -277,40 +205,28 @@ export default function Page() {
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-4">
-                                    <DataBar
-                                        value={3.5}
-                                        maxValue={4}
-                                        color="bg-blue-500"
-                                        label="Sen. Mitch McConnell (R-KY)"
-                                        amount="$3.5M"
-                                    />
-                                    <DataBar
-                                        value={2.8}
-                                        maxValue={4}
-                                        color="bg-blue-400"
-                                        label="Sen. Chuck Schumer (D-NY)"
-                                        amount="$2.8M"
-                                    />
-                                    <DataBar
-                                        value={2.1}
-                                        maxValue={4}
-                                        color="bg-blue-300"
-                                        label="Rep. Kevin McCarthy (R-CA)"
-                                        amount="$2.1M"
-                                    />
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Sen. Mitch McConnell (R-KY)</span>
+                                        <span className="font-bold text-blue-700">$3.5M</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Sen. Chuck Schumer (D-NY)</span>
+                                        <span className="font-bold text-blue-700">$2.8M</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Rep. Kevin McCarthy (R-CA)</span>
+                                        <span className="font-bold text-blue-700">$2.1M</span>
+                                    </div>
                                 </div>
-                                <Button variant="ghost" className="w-full mt-4 text-blue-600 hover:text-blue-700 hover:bg-blue-50">
-                                    View All Recipients →
-                                </Button>
+                                <Button variant="ghost" className="w-full mt-4 text-blue-600 hover:text-blue-700 hover:bg-blue-50">View All Recipients →</Button>
                             </CardContent>
                         </Card>
-
                         {/* How Their Wealth is Changing */}
                         <Card className="border border-slate-200 hover:shadow-lg transition-all duration-300 bg-white">
                             <CardHeader className="pb-4">
                                 <div className="flex items-center space-x-3 mb-2">
                                     <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
-                                        <TrendingUp className="h-6 w-6 text-emerald-600" />
+                                        <ArrowUp className="h-6 w-6 text-emerald-600" />
                                     </div>
                                     <div>
                                         <CardTitle className="text-xl font-bold text-slate-900">How Their Wealth is Changing</CardTitle>
@@ -320,39 +236,40 @@ export default function Page() {
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-4">
-                                    <TrendIndicator value="$87.4M" change="+$5.4M" trend="up" label="Sen. Dianne Feinstein (D-CA)" />
-                                    <TrendIndicator value="$43.2M" change="+$3.1M" trend="up" label="Rep. Nancy Pelosi (D-CA)" />
-                                    <TrendIndicator value="$31.8M" change="-$2.3M" trend="down" label="Sen. Rick Scott (R-FL)" />
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Sen. Dianne Feinstein (D-CA)</span>
+                                        <span className="font-bold text-emerald-700">+$5.4M</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Rep. Nancy Pelosi (D-CA)</span>
+                                        <span className="font-bold text-emerald-700">+$3.1M</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Sen. Rick Scott (R-FL)</span>
+                                        <span className="font-bold text-red-600">-$2.3M</span>
+                                    </div>
                                 </div>
-                                <Button
-                                    variant="ghost"
-                                    className="w-full mt-4 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50"
-                                >
-                                    Track All Changes →
-                                </Button>
+                                <Button variant="ghost" className="w-full mt-4 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50">Track All Changes →</Button>
                             </CardContent>
                         </Card>
                     </div>
                 </div>
             </section>
 
-            {/* Policy in Action Section */}
-            <section className="py-16 bg-white">
+            {/* POLICY IN ACTION SECTION */}
+            <section className="py-12 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-black text-slate-900 mb-4">Policy in Action</h2>
-                        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                            Close votes and the lobbying efforts that shaped them
-                        </p>
+                    <div className="text-center mb-10">
+                        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2">Policy in Action</h2>
+                        <p className="text-lg text-slate-600 max-w-2xl mx-auto">Close votes and the lobbying efforts that shaped them</p>
                     </div>
-
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Close Votes That Shaped Policy */}
                         <Card className="border border-slate-200 hover:shadow-lg transition-all duration-300 bg-white">
                             <CardHeader className="pb-4">
                                 <div className="flex items-center space-x-3 mb-2">
                                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                                        <Vote className="h-6 w-6 text-purple-600" />
+                                        <Eye className="h-6 w-6 text-purple-600" />
                                     </div>
                                     <div>
                                         <CardTitle className="text-xl font-bold text-slate-900">Close Votes That Shaped Policy</CardTitle>
@@ -362,135 +279,135 @@ export default function Page() {
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-4">
-                                    <VoteDonut forVotes={51} againstVotes={49} title="Inflation Reduction Act" />
-                                    <VoteDonut forVotes={220} againstVotes={213} title="Infrastructure Investment Act" />
-                                    <VoteDonut forVotes={50} againstVotes={50} title="Build Back Better (Failed)" />
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Inflation Reduction Act</span>
+                                        <span className="font-bold text-purple-700">51-49</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Infrastructure Investment Act</span>
+                                        <span className="font-bold text-purple-700">220-213</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Build Back Better (Failed)</span>
+                                        <span className="font-bold text-purple-700">50-50</span>
+                                    </div>
                                 </div>
-                                <Button
-                                    variant="ghost"
-                                    className="w-full mt-4 text-purple-600 hover:text-purple-700 hover:bg-purple-50"
-                                >
-                                    Explore Vote Patterns →
-                                </Button>
+                                <Button variant="ghost" className="w-full mt-4 text-purple-600 hover:text-purple-700 hover:bg-purple-50">Explore Vote Patterns →</Button>
                             </CardContent>
                         </Card>
-
                         {/* Lobbying That Made the Difference */}
                         <Card className="border border-slate-200 hover:shadow-lg transition-all duration-300 bg-white">
                             <CardHeader className="pb-4">
                                 <div className="flex items-center space-x-3 mb-2">
                                     <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                                        <Eye className="h-6 w-6 text-orange-600" />
+                                        <ChevronRight className="h-6 w-6 text-orange-600" />
                                     </div>
                                     <div>
-                                        <CardTitle className="text-xl font-bold text-slate-900">
-                                            Lobbying That Made the Difference
-                                        </CardTitle>
+                                        <CardTitle className="text-xl font-bold text-slate-900">Lobbying That Made the Difference</CardTitle>
                                         <CardDescription className="text-slate-600">Industry influence on key votes</CardDescription>
                                     </div>
                                 </div>
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-4">
-                                    <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                                        <div>
-                                            <p className="font-semibold text-slate-900">Pharmaceutical Lobby</p>
-                                            <p className="text-sm text-slate-600">Drug Pricing Reform</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="font-bold text-orange-600">$90M</p>
-                                            <p className="text-xs text-slate-500">2024 spend</p>
-                                        </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Pharmaceutical Lobby</span>
+                                        <span className="font-bold text-orange-700">$90M</span>
                                     </div>
-                                    <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                                        <div>
-                                            <p className="font-semibold text-slate-900">Tech Industry</p>
-                                            <p className="text-sm text-slate-600">Antitrust Legislation</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="font-bold text-orange-600">$67M</p>
-                                            <p className="text-xs text-slate-500">2024 spend</p>
-                                        </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Tech Industry</span>
+                                        <span className="font-bold text-orange-700">$67M</span>
                                     </div>
-                                    <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg">
-                                        <div>
-                                            <p className="font-semibold text-slate-900">Oil & Gas</p>
-                                            <p className="text-sm text-slate-600">Climate Policy</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="font-bold text-orange-600">$45M</p>
-                                            <p className="text-xs text-slate-500">2024 spend</p>
-                                        </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-medium text-slate-700">Oil & Gas</span>
+                                        <span className="font-bold text-orange-700">$45M</span>
                                     </div>
                                 </div>
-                                <Button
-                                    variant="ghost"
-                                    className="w-full mt-4 text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                                >
-                                    See Full Impact Analysis →
-                                </Button>
+                                <Button variant="ghost" className="w-full mt-4 text-orange-600 hover:text-orange-700 hover:bg-orange-50">See Full Impact Analysis →</Button>
                             </CardContent>
                         </Card>
                     </div>
                 </div>
             </section>
 
-            {/* What's Happening Now Section */}
-            <section className="py-16 bg-gradient-to-r from-blue-50 to-slate-50">
+            {/* WHAT'S HAPPENING NOW SECTION */}
+            <section className="py-12 bg-gradient-to-r from-blue-50 to-slate-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-black text-slate-900 mb-4">What's Happening Now</h2>
+                    <div className="text-center mb-10">
+                        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2">What's Happening Now</h2>
                         <p className="text-lg text-slate-600">The latest moves in money and power</p>
                     </div>
-
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {newsItems.map((item, index) => (
-                            <Card
-                                key={index}
-                                className="flex flex-col h-full min-h-[320px] justify-between border border-slate-200 hover:shadow-lg hover:border-blue-200 transition-all duration-300 group bg-white p-6"
-                            >
-                                <CardHeader className="pb-3 px-0">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">
-                                            {item.category}
-                                        </span>
-                                        <span className="text-xs text-slate-500">{item.timeAgo}</span>
-                                    </div>
-                                    <CardTitle className="text-lg font-bold text-slate-900 leading-tight group-hover:text-blue-700 transition-colors line-clamp-2">
-                                        {item.title}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className="pt-0 px-0 flex-1 flex flex-col justify-between">
-                                    <CardDescription className="text-slate-600 mb-4 leading-relaxed line-clamp-3 text-base">
-                                        {item.description}
-                                    </CardDescription>
-                                    <div className="mt-auto">
-                                        <Button
-                                            variant="ghost"
-                                            className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-0 h-auto font-medium group/btn"
-                                        >
-                                            Read Analysis
-                                            <ExternalLink className="ml-1 h-3 w-3 transition-transform group-hover/btn:translate-x-0.5" />
-                                        </Button>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
+                        <Card className="flex flex-col h-full min-h-[320px] justify-between border border-slate-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group bg-white p-6 focus-within:ring-2 focus-within:ring-blue-400" tabIndex={0}>
+                            <CardHeader className="pb-3 px-0">
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">Technology</span>
+                                    <span className="text-xs text-slate-500">2 hours ago</span>
+                                </div>
+                                <CardTitle className="text-lg font-bold text-slate-900 leading-tight group-hover:text-blue-700 transition-colors line-clamp-2">Tech Giants Double Down on Capitol Hill</CardTitle>
+                            </CardHeader>
+                            <CardContent className="pt-0 px-0 flex-1 flex flex-col justify-between">
+                                <CardDescription className="text-slate-600 mb-4 leading-relaxed line-clamp-3 text-base">Amazon, Google, and Meta increase lobbying spend by 47% as antitrust bills advance</CardDescription>
+                                <div className="mt-auto">
+                                    <Button variant="ghost" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-0 h-auto font-medium group/btn focus:ring-2 focus:ring-blue-400">Read Analysis</Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                        <Card className="flex flex-col h-full min-h-[320px] justify-between border border-slate-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group bg-white p-6 focus-within:ring-2 focus-within:ring-blue-400" tabIndex={0}>
+                            <CardHeader className="pb-3 px-0">
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">Defense</span>
+                                    <span className="text-xs text-slate-500">4 hours ago</span>
+                                </div>
+                                <CardTitle className="text-lg font-bold text-slate-900 leading-tight group-hover:text-blue-700 transition-colors line-clamp-2">The $150M Defense Spending Battle</CardTitle>
+                            </CardHeader>
+                            <CardContent className="pt-0 px-0 flex-1 flex flex-col justify-between">
+                                <CardDescription className="text-slate-600 mb-4 leading-relaxed line-clamp-3 text-base">How contractors are shaping the Pentagon's budget behind closed doors</CardDescription>
+                                <div className="mt-auto">
+                                    <Button variant="ghost" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-0 h-auto font-medium group/btn focus:ring-2 focus:ring-blue-400">Read Analysis</Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                        <Card className="flex flex-col h-full min-h-[320px] justify-between border border-slate-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group bg-white p-6 focus-within:ring-2 focus-within:ring-blue-400" tabIndex={0}>
+                            <CardHeader className="pb-3 px-0">
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">Healthcare</span>
+                                    <span className="text-xs text-slate-500">6 hours ago</span>
+                                </div>
+                                <CardTitle className="text-lg font-bold text-slate-900 leading-tight group-hover:text-blue-700 transition-colors line-clamp-2">Pharma's Quiet Medicare Victory</CardTitle>
+                            </CardHeader>
+                            <CardContent className="pt-0 px-0 flex-1 flex flex-col justify-between">
+                                <CardDescription className="text-slate-600 mb-4 leading-relaxed line-clamp-3 text-base">Industry spending pays off as drug pricing reforms face delays</CardDescription>
+                                <div className="mt-auto">
+                                    <Button variant="ghost" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-0 h-auto font-medium group/btn focus:ring-2 focus:ring-blue-400">Read Analysis</Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+                        <Card className="flex flex-col h-full min-h-[320px] justify-between border border-slate-200 hover:shadow-xl hover:border-blue-200 transition-all duration-300 group bg-white p-6 focus-within:ring-2 focus-within:ring-blue-400" tabIndex={0}>
+                            <CardHeader className="pb-3 px-0">
+                                <div className="flex items-center justify-between mb-2">
+                                    <span className="px-2 py-1 bg-orange-100 text-orange-800 text-xs font-medium rounded">Energy</span>
+                                    <span className="text-xs text-slate-500">8 hours ago</span>
+                                </div>
+                                <CardTitle className="text-lg font-bold text-slate-900 leading-tight group-hover:text-blue-700 transition-colors line-clamp-2">Energy Lobby's Climate Calculus</CardTitle>
+                            </CardHeader>
+                            <CardContent className="pt-0 px-0 flex-1 flex flex-col justify-between">
+                                <CardDescription className="text-slate-600 mb-4 leading-relaxed line-clamp-3 text-base">Oil companies pivot strategy as renewable subsidies gain momentum</CardDescription>
+                                <div className="mt-auto">
+                                    <Button variant="ghost" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-0 h-auto font-medium group/btn focus:ring-2 focus:ring-blue-400">Read Analysis</Button>
+                                </div>
+                            </CardContent>
+                        </Card>
                     </div>
-
                     <div className="text-center mt-8">
-                        <Button
-                            variant="outline"
-                            className="border-2 border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300 px-6 py-3 font-semibold bg-transparent"
-                        >
-                            View All Updates
-                        </Button>
+                        <Button variant="outline" className="border-2 border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300 px-6 py-3 font-semibold bg-transparent focus:ring-2 focus:ring-blue-400">View All Updates</Button>
                     </div>
                 </div>
             </section>
 
-            {/* Footer */}
-            <footer className="bg-slate-900 text-white py-12">
+            {/* Footer (unchanged) */}
+            <footer className="bg-slate-900 text-white pt-4 pb-12">
+                <div className="h-2 bg-gradient-to-r from-blue-400/20 via-transparent to-blue-400/20 mb-8" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                         {/* Logo and Description */}
@@ -507,10 +424,10 @@ export default function Page() {
                             </p>
                             <div className="flex space-x-4">
                                 <Link href="#" className="text-slate-400 hover:text-blue-400 transition-colors">
-                                    <Linkedin className="h-5 w-5" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin h-5 w-5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6" /></svg>
                                 </Link>
                                 <Link href="#" className="text-slate-400 hover:text-blue-400 transition-colors">
-                                    <Twitter className="h-5 w-5" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-twitter h-5 w-5"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" /></svg>
                                 </Link>
                             </div>
                         </div>
