@@ -2,12 +2,17 @@ FROM node:20
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Copy package files first for better caching
+COPY package*.json ./
 
-RUN npm install
+# Install dependencies (including dev dependencies)
+RUN npm ci
 
+# Copy the rest of the application
 COPY . .
 
+# Expose port
 EXPOSE 3000
 
+# Start the development server
 CMD ["npm", "run", "dev"]
